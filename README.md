@@ -105,6 +105,10 @@ Each skill is a self-contained directory:
   evals/        # labelled trigger queries for tuning the description
 ```
 
+## Contributing
+
+Changes land through pull requests with a passing `validate` check; see [CONTRIBUTING.md](CONTRIBUTING.md) for the flow, the local validator, and the house style.
+
 ## License
 
 [MIT](LICENSE)
