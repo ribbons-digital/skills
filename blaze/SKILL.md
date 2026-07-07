@@ -148,7 +148,11 @@ After the code review is resolved, commit the slice on the feature branch and ru
 
 The preferred gate is no-mistakes: load the no-mistakes skill and follow its own runbook for setup, runs, and gate responses; do not duplicate its CLI mechanics from memory, since the skill is the authoritative source for its current commands.
 
-If skill discovery does not surface no-mistakes, its official quick start is the bootstrap reference: https://kunchenguid.github.io/no-mistakes/start-here/quick-start/
+If skill discovery does not surface no-mistakes, or any no-mistakes command fails in a way its skill does not explain, fetch and follow the official quick start before reporting failure: https://kunchenguid.github.io/no-mistakes/start-here/quick-start/
+
+One bootstrap fact stays here because agents repeatedly failed without it: a validation run is started by pushing the branch through the gate remote with `git push no-mistakes <branch>`, while `no-mistakes axi run` only attaches to an existing run; on an error like `no run started for "<branch>": no previous run for branch`, push the branch through the gate remote first, then retry `axi run`.
+
+If the loaded no-mistakes skill or the quick start shows different commands, those win over this fact.
 
 Invariants that hold regardless of the runbook version:
 
@@ -157,7 +161,7 @@ Invariants that hold regardless of the runbook version:
 - Use long timeouts for validation runs and responses; review, test, and CI steps can each take several minutes.
 - Escalate `ask-user` findings to the user unless the user gave explicit unattended consent.
 - Drive the run to a terminal outcome; when checks pass, stop driving the pipeline and ask the user to review and merge the PR.
-- If no-mistakes cannot start or is blocked, report the exact command, output, and failure instead of pretending the gate ran.
+- If no-mistakes cannot start after the gate-remote push and a quick-start consultation, report the exact command, output, and failure instead of pretending the gate ran; a run blocked by its own gate findings is not a start failure, so fix or escalate those findings instead.
 
 Fallback when no-mistakes is unavailable or the user declines install:
 
