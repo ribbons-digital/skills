@@ -1,0 +1,157 @@
+{
+  "skill_name": "knock-knock",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to add a Cursor harness adapter to Memory Lane but I've never touched the adapters package. Do a blindspot pass.",
+      "expected_output": "A blindspot-pass report grounded in the actual codebase, listing unknown unknowns and ending with concrete prompting advice.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Establishes the user's starting point (asks for it, or explicitly uses the experience level stated in the prompt) before diagnosing",
+          "type": "behavioral"
+        },
+        {
+          "text": "Findings are grounded in the real codebase (cites actual files/types/conventions), not generic advice",
+          "type": "behavioral"
+        },
+        {
+          "text": "Routes to the blindspot-pass technique only; does not run interviews, brainstorms, or implementation plans in the same response",
+          "type": "behavioral"
+        },
+        {
+          "text": "Ends with 'how to prompt better' guidance derived from the findings",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want a landing page hero for my agency site but I'll know it when I see it.",
+      "expected_output": "Routes to brainstorm/prototype: one disposable artifact with ~4 genuinely divergent directions to react to.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies as unknown-knowns and routes to brainstorms & prototypes, not an interview about preferences the user said they cannot articulate",
+          "type": "behavioral"
+        },
+        {
+          "text": "Produces or proposes a single disposable artifact (e.g., one HTML mock) with multiple genuinely different directions, not one polished implementation",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not wire up real infrastructure or production code",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Interview me about anything ambiguous in this spec before we build it.",
+      "expected_output": "An interview conducted one question at a time, prioritized by architectural impact.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Asks exactly one question, then waits for the answer (does not batch a questionnaire)",
+          "type": "behavioral"
+        },
+        {
+          "text": "First question targets a decision that would change the architecture or approach, not cosmetic details",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're ready to build. Write the implementation plan for the feature we discussed.",
+      "expected_output": "A decisions-first plan: data models, type interfaces, and user-facing behavior at top; mechanical refactoring at bottom marked as not needing review.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Plan orders content by likelihood the user will want to change it: data model changes, type interfaces, and user-facing behavior appear before mechanical refactoring",
+          "type": "behavioral"
+        },
+        {
+          "text": "Mechanical/low-risk sections are explicitly marked as not needing close review",
+          "type": "behavioral"
+        },
+        {
+          "text": "Recommends starting a fresh session/context with the approved plan and artifacts",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Start implementing the approved plan now. Track anything that forces you off-plan.",
+      "expected_output": "Implementation proceeds with a running implementation-notes.md containing assumptions and a Deviations section.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Creates or maintains an implementation-notes.md (or .html) file during the work",
+          "type": "behavioral"
+        },
+        {
+          "text": "Notes file contains a 'Deviations' section logging departures from the plan",
+          "type": "behavioral"
+        },
+        {
+          "text": "When hitting an edge case, picks the conservative option, logs it, and continues rather than stopping",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Claude Code just did a big refactor of the lifecycle package. Quiz me before I merge.",
+      "expected_output": "A report (context, intuition, what changed and why) ending in a 3-7 question quiz with a merge gate.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Output ends with a quiz of 3-7 questions",
+          "type": "behavioral"
+        },
+        {
+          "text": "Questions prioritize behavior that depends on existing code paths over surface diff content",
+          "type": "behavioral"
+        },
+        {
+          "text": "States the merge gate: don't merge until the quiz is passed cleanly",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Package this change so I can get buy-in from the team in Slack.",
+      "expected_output": "A single pitch/explainer artifact combining spec, prototype, and implementation notes, leading with a demo.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Produces one consolidated artifact (not scattered pieces) combining spec, prototype, and implementation notes where available",
+          "type": "behavioral"
+        },
+        {
+          "text": "Leads with the demo or most visual element",
+          "type": "behavioral"
+        },
+        {
+          "text": "Addresses reviewer unknowns up front (resolves the unknowns a fresh reviewer would start with)",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Fix this typo in the README: 'recieve' should be 'receive'.",
+      "expected_output": "Skill does not engage its process; the fix is made directly.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not run any knock-knock technique (no blindspot pass, interview, or plan) for a trivial task",
+          "type": "behavioral"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "skill_name": "swarm-worker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Assignment from coordinator: implement slice 'rate-limit headers' in worktree ../repo-ratelimit on branch slice/rate-limit-headers; acceptance criteria: unit tests in tests/ratelimit pass and pnpm typecheck passes; out of scope: retry logic.",
+      "expected_output": "Location verified before editing, only the assigned slice implemented, commits on the slice branch, handoff with branch, worktree path, SHAs, and verification results.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Verifies the worktree and branch with git worktree list and git status before the first edit",
+          "type": "behavioral"
+        },
+        {
+          "text": "Implements only the assigned slice and treats retry logic as out of scope",
+          "type": "behavioral"
+        },
+        {
+          "text": "Commits on the slice branch and reports branch, worktree path, commit SHAs, and verification commands with results in the handoff",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not open a PR, push unrequested, or run external reviewer models",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Mid-slice you discover the assigned interface change would break another team's consumer in a way the assignment never mentions.",
+      "expected_output": "WIP committed, then a structured escalation to the coordinator with options and a recommendation; affected work pauses for the confirmed next action.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Commits work in progress on the slice branch before blocking on the escalation",
+          "type": "behavioral"
+        },
+        {
+          "text": "Escalates over the coordinator channel with the decision needed, options considered, and a recommended next action, rather than guessing or shrinking scope",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The typecheck keeps failing after your third distinct fix attempt on the same error.",
+      "expected_output": "Stops retrying and escalates to the coordinator with the attempts tried and their outcomes.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Stops after three distinct fix attempts and escalates with the attempts and outcomes instead of continuing to retry",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Coordinator here: we should probably improve the caching situation somehow, take a look.",
+      "expected_output": "The vague goal is piped back up for an approved slice assignment; the worker does not self-scope.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not turn the vague goal into a slice itself; requests an approved slice assignment and waits",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "No coordinator here, just me: take this one bounded slice, add the input sanitizer in src/forms, verify it, and report back; I'll handle delivery.",
+      "expected_output": "Standalone mode: the user is the coordinator; slice branch created, work verified and committed, handoff to the user, delivery left to the user.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Operates standalone with the user as coordinator, creating a slice branch off the default or integration branch",
+          "type": "behavioral"
+        },
+        {
+          "text": "Hands delivery back to the user instead of opening a PR or running delivery workflows",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Slice accepted. Now open the PR for it and merge when green.",
+      "expected_output": "Declines PR and merge work; those belong to the coordinator or a delivery-capable skill like blaze.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not open a PR or merge; states that delivery belongs to the coordinator or a delivery-capable skill",
+          "type": "behavioral"
+        }
+      ]
+    }
+  ]
+}

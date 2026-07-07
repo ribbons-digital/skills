@@ -1,0 +1,105 @@
+{
+  "skill_name": "blaze",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Recommend the next slice for this project and draft the spec for it.",
+      "expected_output": "A reviewer second opinion runs before the spec is presented, via a scratch-file prompt to the resolved reviewer model, capped at three debate rounds.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Gets a second opinion from the resolved reviewer model before presenting the spec to the user",
+          "type": "behavioral"
+        },
+        {
+          "text": "Writes the review prompt to a scratch file and invokes with -p \"$(cat file)\" rather than inline quoting",
+          "type": "behavioral"
+        },
+        {
+          "text": "Caps debate at three rounds and presents unresolved disagreement to the user as the decision",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not start implementation before user approval",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "/blaze fable - plan and implement the retry logic fix.",
+      "expected_output": "The reviewer model resolves to claude-fable-5 from the invocation argument.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Resolves the reviewer model to claude-fable-5 from the invocation argument and uses it for all review gates",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The plan is approved, go ahead and implement it.",
+      "expected_output": "Implementation on a feature branch, slice defined before editing, only approved scope, verification with exact commands reported.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Creates or confirms a feature branch before editing",
+          "type": "behavioral"
+        },
+        {
+          "text": "Defines the slice (behavior, files, checks, docs, out-of-scope) before editing",
+          "type": "behavioral"
+        },
+        {
+          "text": "Reports exact verification commands and their results, not confidence statements",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Implementation looks done to me. Review it and ship the PR.",
+      "expected_output": "Pre-PR reviewer inspection of the full diff, then the validation tail; never a manual push to main; install of missing tooling only with consent.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Runs the pre-PR reviewer gate on the diff before any PR activity",
+          "type": "behavioral"
+        },
+        {
+          "text": "Never pushes to main manually; delivery goes through the validated PR",
+          "type": "behavioral"
+        },
+        {
+          "text": "If the no-mistakes CLI is missing, asks the user before running any install script and falls back to manual verification plus user-approved PR on decline",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The PR was merged, wrap up.",
+      "expected_output": "Post-merge cleanup: fast-forward main, delete local and remote feature branches, confirm validation outcome.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Fast-forwards main and deletes the local and remote feature branches",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "You are worker 3 dispatched by the swarm coordinator; implement your assigned slice in worktree ../repo-auth on branch slice/auth.",
+      "expected_output": "blaze does not engage; the swarm-worker skill governs dispatched worker threads.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not apply blaze's PR and review-gate workflow inside a dispatched worker thread",
+          "type": "behavioral"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "skill_name": "swarm",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The scope is approved: migrate the API layer, update the client hooks, and refresh the docs. Orchestrate this across parallel workers.",
+      "expected_output": "Scope decomposed into slices meeting the runnable-slice contract, plan presented for approval, then worktrees created and workers dispatched.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Presents the slice plan to the user and waits for approval before dispatching any worker",
+          "type": "behavioral"
+        },
+        {
+          "text": "Each slice includes the full runnable-slice contract, including objectively checkable acceptance criteria",
+          "type": "behavioral"
+        },
+        {
+          "text": "Creates an integration branch and one worktree with a slice branch per slice before dispatch",
+          "type": "behavioral"
+        },
+        {
+          "text": "Respects the concurrency cap, queuing slices beyond it",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not implement any slice itself",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Worker 2 messaged: the assigned refactor would change public API behavior, should it proceed with a breaking change or add a compatibility layer?",
+      "expected_output": "Classified as needing human approval; surfaced to the user, decision relayed back as the confirmed next action; the worker is not left blocked.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies the escalation and surfaces the scope-affecting decision to the user rather than deciding unilaterally",
+          "type": "behavioral"
+        },
+        {
+          "text": "Relays the decision back to the worker as a confirmed next action and records the escalation for the final report",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Worker 4 has been silent for a long time while the other three finished their slices.",
+      "expected_output": "Staleness handling per stop conditions: one status ping, then treat as dead, salvage committed work, respawn with a tightened assignment.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Sends one status ping before declaring the worker dead",
+          "type": "behavioral"
+        },
+        {
+          "text": "Salvages committed work from the slice branch and respawns with a tightened assignment rather than waiting indefinitely",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "All slices are accepted. Integrate and deliver.",
+      "expected_output": "Slice branches merged one at a time into the integration branch with project-wide verification after each, one final PR, worktrees cleaned up.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Merges or cherry-picks one slice branch at a time and runs project-wide verification after each merge",
+          "type": "behavioral"
+        },
+        {
+          "text": "Opens exactly one final PR from the integration branch and never commits directly to main",
+          "type": "behavioral"
+        },
+        {
+          "text": "Removes slice worktrees and deletes merged slice branches",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "A worker's third fix-up round still fails the acceptance criteria.",
+      "expected_output": "The fix-up cap triggers: the slice stops and escalates to the user with diffs and evidence instead of a fourth round.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Stops the slice at the fix-up cap and escalates to the user with the diffs and evidence",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Implement this small validation bug fix for me.",
+      "expected_output": "swarm does not engage for a single solo slice; blaze or direct work applies.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not spin up coordination, worktrees, or workers for a single small task",
+          "type": "behavioral"
+        }
+      ]
+    }
+  ]
+}

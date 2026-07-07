@@ -1,0 +1,161 @@
+{
+  "skill_name": "loop-architect",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We have about 80 files still importing from src/legacy. Design a loop that migrates them all to @core/v2 without me babysitting each one.",
+      "expected_output": "A burn-down Loop Card with a machine-runnable exit condition, per-file iteration, verification order, state file, stop conditions, and human gates, presented for approval before running.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies the task as a burn-down archetype and says so explicitly",
+          "type": "behavioral"
+        },
+        {
+          "text": "Exit condition is machine-runnable (e.g., a grep plus test command), not a vague statement like 'migration complete'",
+          "type": "behavioral"
+        },
+        {
+          "text": "Enumerates the real work list via actual searches of the codebase rather than guessing the file set",
+          "type": "behavioral"
+        },
+        {
+          "text": "Presents the Loop Card for user approval before running any iteration",
+          "type": "behavioral"
+        },
+        {
+          "text": "Verification separates the doer from the grader (deterministic checks plus an independent judge, not self-review)",
+          "type": "behavioral"
+        },
+        {
+          "text": "Specifies an external state file with per-item status that the loop reads before acting and writes after each item",
+          "type": "behavioral"
+        },
+        {
+          "text": "Runs on a branch or worktree rather than the user's working tree",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I keep typing 'fix the next failing test' at you over and over. Build me a loop for this instead.",
+      "expected_output": "A convergence Loop Card whose exit is the test suite passing, with a stuck detector for tests that fail repeatedly and a state file tracking attempted tests.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies as a convergence loop with the test suite exit as the machine-runnable exit condition",
+          "type": "behavioral"
+        },
+        {
+          "text": "Includes a stuck detector (same test failing twice, or N no-progress rounds) as a hard stop",
+          "type": "behavioral"
+        },
+        {
+          "text": "Produces a runnable loop prompt so the user re-invokes instead of re-typing instructions",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Turn this into a loop: hunt for dead code across the repo and keep going until you stop finding anything.",
+      "expected_output": "A discovery Loop Card whose exit is K consecutive empty rounds, with findings accumulated in external state and deletion gated behind human review.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies as a discovery loop and sets the exit as K consecutive rounds with no new findings, not a fixed count",
+          "type": "behavioral"
+        },
+        {
+          "text": "Treats deletion as an irreversible action that escalates to the human rather than being pre-authorized by default",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Help me loop-engineer a nightly job that triages new CI failures and leaves notes on the tracker.",
+      "expected_output": "A watch Loop Card with a cadence instead of an exit condition, a per-run success condition, and outward-facing tracker writes handled as a human gate or explicit pre-authorization.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies as a watch loop and defines a cadence plus per-run success condition instead of a fake done-condition",
+          "type": "behavioral"
+        },
+        {
+          "text": "Outward-facing writes (tracker comments) are either escalated or explicitly pre-authorized in the Loop Card, not assumed",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The loop you designed keeps marking config files as blocked for the same reason. Improve the loop.",
+      "expected_output": "A hill-climbing pass: diagnose the recurring failure as loop-design debt and update the loop prompt, rubric, or checks, with a versioned Loop Card noting the change.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Treats the recurring failure as a loop-design problem and updates the loop prompt, rubric, or deterministic checks rather than just retrying items",
+          "type": "behavioral"
+        },
+        {
+          "text": "Records what changed in the Loop Card (version or changelog note)",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Add a dark mode toggle to the settings page.",
+      "expected_output": "Skill does not engage; the one-shot task is done or planned directly.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not produce a Loop Card or loop prompt for a one-shot feature task",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Why does this while loop in worker.ts never exit?",
+      "expected_output": "Skill does not engage; this is a program-code loop bug, answered directly.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not invoke the loop-design process for a question about a loop in program code",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Great, you've added the null-check guard to those three handlers. Here are the remaining 14 handlers that need the exact same treatment, keep going.",
+      "expected_output": "The agent recognizes the repetition proactively, pauses, and proposes designing a loop for the remaining handlers instead of continuing item by item.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Notices the 3+ item repetition and proposes a loop without the user asking for one",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not silently grind through the remaining items one prompt at a time",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Run /loop 10m on the triage prompt we already wrote yesterday.",
+      "expected_output": "Skill does not engage; the loop is already designed and the user is asking to run it on an interval.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Routes to the /loop runner instead of redesigning an already-approved loop",
+          "type": "behavioral"
+        }
+      ]
+    }
+  ]
+}
