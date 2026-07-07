@@ -1,6 +1,6 @@
 ---
 name: blaze
-description: Use when running a solo review-gated coding slice from entry gate to post-merge cleanup, with second-opinion model review of plans and specs, explicit user approval before implementation, verification, pre-PR model review, no-mistakes validation, PR workflow, and branch cleanup. The reviewer model is configurable and defaults to claude-opus-4-8. Not for worker threads dispatched by the swarm coordinator (use swarm-worker) and not for orchestrating multiple parallel slices (use swarm).
+description: Use when running a solo review-gated coding slice from entry gate to post-merge cleanup, with second-opinion model review of plans and specs, explicit user approval before implementation, verification, pre-PR model review, no-mistakes validation, PR workflow, and branch cleanup. Bug fixes follow a reproduce-first path with diagnosis review and a required regression test. The reviewer model is configurable and defaults to claude-opus-4-8. Not for worker threads dispatched by the swarm coordinator (use swarm-worker) and not for orchestrating multiple parallel slices (use swarm).
 ---
 
 # Blaze
@@ -44,6 +44,26 @@ Start by identifying the current mode:
 If the project keeps a status or handoff doc, read it, then verify against repository state.
 
 Check `git status`, current branch, recent commits, and relevant docs before changing files.
+
+## Bug-fix path
+
+When the slice is a bug fix, the gates below adapt as follows; everything else in this skill still applies.
+
+Reproduce before diagnosing: produce a failing reproduction in a setting as close to how the end user experiences the bug as possible, end to end, before proposing any fix.
+
+Create the feature branch up front for a bug fix, since reproduction and diagnosis work precede the user approval that normally gates branch creation; never investigate on `main`.
+
+No reproduction, no fix: if the bug cannot be reproduced, report what was tried and ask the user for more signal instead of fixing blind.
+
+The planning gate reviews the diagnosis, not a spec: the reviewer's scratch file contains the reproduction, the root-cause claim with evidence, and the proposed fix approach, and the reviewer's question is whether the root cause is proven or the fix patches a symptom.
+
+After the diagnosis review, present the diagnosis and fix approach to the user for approval before implementing, exactly as the planning gate requires for a spec.
+
+Acceptance criteria are fixed before implementing: the reproduction passes after the fix, the reproduction graduates into the test suite as a regression test, and the relevant suite stays green.
+
+Keep the fix minimal: fix the cause, not every smell near it, and park refactors as follow-ups.
+
+For trivial bugs whose cause is visible on sight, propose waiving the diagnosis review and proceed only if the user agrees; the reproduction and regression test still apply.
 
 ## Slice selection and planning gate
 

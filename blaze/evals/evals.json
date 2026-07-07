@@ -91,6 +91,30 @@
     },
     {
       "id": 6,
+      "prompt": "Users report the export button silently fails on files over 10MB. Fix this bug with the full workflow.",
+      "expected_output": "The bug is reproduced end to end before any fix, the diagnosis (not a spec) goes through the reviewer gate, and the reproduction becomes a regression test in the acceptance criteria.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Produces a failing end-to-end reproduction before proposing or implementing any fix",
+          "type": "behavioral"
+        },
+        {
+          "text": "The reviewer gate evaluates the root-cause diagnosis with the reproduction as evidence, asking whether the fix patches a symptom",
+          "type": "behavioral"
+        },
+        {
+          "text": "Acceptance criteria include the reproduction passing and graduating into the test suite as a regression test",
+          "type": "behavioral"
+        },
+        {
+          "text": "Keeps the fix minimal and parks nearby refactors as follow-ups",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 7,
       "prompt": "You are worker 3 dispatched by the swarm coordinator; implement your assigned slice in worktree ../repo-auth on branch slice/auth.",
       "expected_output": "blaze does not engage; the swarm-worker skill governs dispatched worker threads.",
       "files": [],
