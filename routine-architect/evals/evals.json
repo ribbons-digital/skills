@@ -1,0 +1,181 @@
+{
+  "skill_name": "routine-architect",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Every morning, check the team channel and give me a digest of what happened overnight. Set this up so I don't have to ask each time.",
+      "expected_output": "A watch Routine Card with a cadence and per-run success condition instead of an exit, an input watermark (last-seen message ID), grounding checks on the digest, and a dry-run pilot before live delivery.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies the task as a watch archetype and says so explicitly",
+          "type": "behavioral"
+        },
+        {
+          "text": "Defines a per-run success condition and cadence rather than a fake done-condition",
+          "type": "behavioral"
+        },
+        {
+          "text": "Specifies an input watermark (e.g., last-seen message ID or timestamp) so runs never reprocess the same messages",
+          "type": "behavioral"
+        },
+        {
+          "text": "Verification includes grounding checks that every digest claim traces to a real message, not just format checks",
+          "type": "behavioral"
+        },
+        {
+          "text": "Presents the Routine Card for user approval before anything runs",
+          "type": "behavioral"
+        },
+        {
+          "text": "First runs are dry-run: a would-have-done report reviewed before live delivery is enabled",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have about 200 clippings sitting unprocessed in my vault. Build me a routine that summarizes, tags, and files each one into the knowledge base.",
+      "expected_output": "A burn-down (or pipeline) Routine Card with the work list enumerated by actually listing the clippings folder, per-item iteration, structural frontmatter checks plus a judge, an idempotency ledger, and filing gated or capped as a write surface.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies the task as a burn-down or pipeline archetype and says so explicitly",
+          "type": "behavioral"
+        },
+        {
+          "text": "Enumerates the real work list by listing the actual clippings rather than guessing the count",
+          "type": "behavioral"
+        },
+        {
+          "text": "Exit condition is machine-runnable (e.g., zero unprocessed clippings by frontmatter status), not 'the backlog is done'",
+          "type": "behavioral"
+        },
+        {
+          "text": "State file tracks processed-item IDs so a repeated run never re-files the same clipping",
+          "type": "behavioral"
+        },
+        {
+          "text": "Verification separates the doer from the grader and includes grounding of summaries against the source clipping",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I keep asking you to triage my inbox and draft replies. Automate this workflow for me.",
+      "expected_output": "A Routine Card where drafting is a reversible write surface but sending is irreversible and always human-gated, with per-run volume caps and blocked items landing in a triage location.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies write surfaces by reversibility and treats sending email as irreversible",
+          "type": "behavioral"
+        },
+        {
+          "text": "Sending never happens without a human gate or an explicit capped pre-authorization in the Routine Card",
+          "type": "behavioral"
+        },
+        {
+          "text": "Sets a per-run volume cap on outbound writes",
+          "type": "behavioral"
+        },
+        {
+          "text": "Presents the Routine Card for approval before anything runs",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Audit my vault for stale or contradictory notes and keep going until you stop finding anything.",
+      "expected_output": "A discovery Routine Card whose exit is K consecutive empty rounds, with findings accumulated in external state and any note edits or deletions gated behind human review.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Classifies the task as a discovery archetype with an exit of K consecutive empty rounds",
+          "type": "behavioral"
+        },
+        {
+          "text": "Findings accumulate in an external state file, not conversation memory",
+          "type": "behavioral"
+        },
+        {
+          "text": "Deletion or rewriting of notes is treated as irreversible or soft-reversible and gated accordingly",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The digest routine keeps summarizing the same pinned announcement every day. Improve the routine.",
+      "expected_output": "A hill-climbing pass: diagnose the recurring inclusion as routine-design debt, fix it via the watermark or an exclusion rule in the routine prompt, and version the Routine Card noting the change.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Treats the recurring failure as a routine-design failure rather than re-fixing the single output",
+          "type": "behavioral"
+        },
+        {
+          "text": "Encodes the fix into the routine prompt, watermark handling, or rubric so future runs inherit it",
+          "type": "behavioral"
+        },
+        {
+          "text": "Updates the Routine Card version and notes what changed",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Summarize this article for me.",
+      "expected_output": "Skill does not engage; the one-shot task is done directly.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not produce a Routine Card or routine prompt for a one-shot summarization",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "We have about 80 files still importing from src/legacy. Design a loop that migrates them all to @core/v2.",
+      "expected_output": "Skill does not engage; this is a repetitive coding task in a repository, routed to loop-architect.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Does not engage routine-architect for a repo coding migration; defers to loop-architect",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Thanks for the market digest. Can you do the same thing again for today? Same format as the last two.",
+      "expected_output": "The agent recognizes the recurring non-coding request proactively and proposes designing a routine instead of producing the digest manually again.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Notices the 3+ recurrence and proposes a routine without the user asking for one",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not silently produce the digest manually yet again without raising the routine option",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Run the morning-digest routine we designed last week.",
+      "expected_output": "Skill does not engage; the routine is already designed and the user is asking to run it.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Executes or schedules the existing routine prompt instead of redesigning it",
+          "type": "behavioral"
+        }
+      ]
+    }
+  ]
+}

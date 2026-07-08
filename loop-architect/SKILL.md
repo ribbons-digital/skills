@@ -124,6 +124,9 @@ Choose how iterations are driven:
 Choose isolation to match blast radius: any loop that mutates files runs on a branch or worktree, never the user's working tree; parallel lanes get one worktree each so agents cannot collide.
 Grant the narrowest tool permissions the iteration needs, since a loop multiplies whatever access it has.
 
+For high-stakes or ambiguous items, fan out instead of committing to one attempt: dispatch the same item to N parallel lanes (one worktree each, same iteration contract), then have the judge adversarially compare the candidate diffs against the rubric and keep exactly one; the rest are discarded, not merged.
+Cost scales by N, so reserve this for items where a plausible-but-wrong fix is expensive to catch later, and record in the state file which candidate won and why.
+
 ## Step 7: Assemble the Loop Card and hand off
 
 Fill in the Loop Card and present it to the user for approval before anything runs.
@@ -168,6 +171,8 @@ instructions, stop and ask; do not improvise.
 For Watch loops, which have no exit, replace step 2 of the template with: "If nothing is pending, run the per-run success check `<check>`, write results to `<state-file>`, and stop until the next `<cadence>` trigger; never emit LOOP DONE."
 
 Initialize the state file with the work list (for burn-downs, enumerate it now with real searches, not guesses) before declaring the loop ready.
+For large work lists, do not authorize the full run at once: pilot 3-5 iterations, then hold a boundary review of the done log, blocked list, and cost before approving the rest.
+The pilot doubles as the first Step 8 review; feed its findings back into the Loop Card before the full run.
 
 ## Step 8: Hill-climb the loop itself
 
