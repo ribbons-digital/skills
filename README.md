@@ -19,7 +19,7 @@ git clone https://github.com/ribbons-digital/skills.git
 
 ```bash
 # personal (all projects)
-cp -R skills/knock-knock skills/loop-architect skills/blaze skills/swarm skills/swarm-worker ~/.claude/skills/
+cp -R skills/knock-knock skills/loop-architect skills/routine-architect skills/blaze skills/swarm skills/swarm-worker ~/.claude/skills/
 
 # or project-scoped: same, targeting <your-project>/.claude/skills/
 ```
@@ -28,7 +28,7 @@ Take only what you need; each skill is self-contained, except that `swarm` requi
 
 3. Restart your agent session so the skills are picked up.
 
-4. Invoke explicitly (`/knock-knock`, `/loop-architect`) or just describe your task - the skills trigger automatically on relevant prompts.
+4. Invoke explicitly (`/knock-knock`, `/loop-architect`, `/routine-architect`) or just describe your task - the skills trigger automatically on relevant prompts.
 
 > [!TIP]
 > These skills are plain markdown with minimal frontmatter, so they are not Claude Code specific.
@@ -52,6 +52,7 @@ The leverage stopped being in any single prompt; it moved to the loop around the
 **The fix:** [loop-architect](loop-architect/SKILL.md) designs the loop once so you review a spec instead of babysitting iterations.
 It qualifies whether a loop is warranted, classifies the archetype (burn-down, convergence, discovery, watch, pipeline), and works through exit condition, iteration unit, verification with creator/verifier separation, external state, stop conditions, and human gates.
 The deliverable is a Loop Card you approve plus a runnable loop prompt and state file, harness-neutral by construction.
+For non-coding recurring work, [routine-architect](routine-architect/SKILL.md) is the sibling skill: it designs routines for digests, inbox triage, vault upkeep, monitoring, and content pipelines where verification depends on grounding checks, idempotent state, reversible write surfaces, and human-gated outbound actions.
 
 > "You design the system that does it instead."
 > - Addy Osmani, [Loop Engineering](https://addyosmani.com/blog/loop-engineering/)
@@ -82,6 +83,7 @@ Workers own exactly one slice, escalate instead of guessing, and never push or m
 ### Loop engineering
 
 - **[loop-architect](loop-architect/SKILL.md)** - turn a repetitive or recurring coding task into a designed, verifiable, resumable loop. Triggers on explicit loop-design asks and proactively when the agent notices it is repeating the same shape of change across 3+ items.
+- **[routine-architect](routine-architect/SKILL.md)** - turn repetitive non-coding work into a designed, verifiable, resumable routine. Triggers on recurring digests, inbox or channel triage, monitoring, knowledge-base upkeep, and content pipelines, with strict grounding and write-safety gates.
 
 ### Review-gated delivery
 
@@ -92,7 +94,7 @@ Workers own exactly one slice, escalate instead of guessing, and never push or m
 - **[swarm](swarm/SKILL.md)** - coordinate multiple slices in parallel: decompose, dispatch workers into per-slice worktrees, adjudicate escalations, enforce stop conditions, integrate into one PR. Requires a harness with worker dispatch and two-way worker messaging.
 - **[swarm-worker](swarm-worker/SKILL.md)** - execute exactly one assigned slice in a worker thread: verify location, implement only the slice, escalate instead of guessing, commit and hand off. Also runs standalone with the user as coordinator.
 
-They compose: knock-knock defines what "good" looks like for a task, loop-architect turns that definition into a machine that produces it repeatedly, blaze delivers a single slice through gates, and swarm fans the same discipline out across parallel workers.
+They compose: knock-knock defines what "good" looks like for a task, loop-architect turns coding repetition into a machine that produces it repeatedly, routine-architect does the same for non-coding routines, blaze delivers a single slice through gates, and swarm fans the same discipline out across parallel workers.
 
 ## Repo structure
 
