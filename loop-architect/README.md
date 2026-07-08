@@ -59,6 +59,7 @@ It intentionally does **not** trigger for:
 - One-shot tasks ("fix this bug", "add this endpoint")
 - Running an already-designed loop on an interval (that's `/loop`)
 - Loops in program code ("why does this for loop never exit", React render loops)
+- Non-coding recurring work (channel digests, inbox triage, vault upkeep) - that's [routine-architect](../routine-architect/README.md)
 
 ## Relationship to /loop
 
