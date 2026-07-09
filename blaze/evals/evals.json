@@ -116,7 +116,7 @@
     {
       "id": 7,
       "prompt": "/blaze quickfix - the settings checkbox saves the opposite value. Reproduce it and patch the minimal cause.",
-      "expected_output": "Quickfix mode engages only after a narrow reproduction, skips the separate diagnosis-review gate, records an inline Quickfix diagnosis, keeps branch safety and regression evidence, and falls back to the full bug-fix path if the scope or uncertainty grows.",
+      "expected_output": "Quickfix mode engages only after a narrow reproduction, preserves the exact quickfix invocation in the Quickfix diagnosis, slice definition, handoff, and reviewer prompt, skips the separate diagnosis-review gate, keeps branch safety and regression evidence, and falls back to the full bug-fix path if the scope or uncertainty grows.",
       "files": [],
       "assertions": [
         {
@@ -129,6 +129,10 @@
         },
         {
           "text": "Records an inline Quickfix diagnosis with reproduction, failing evidence, root cause, minimal fix, and regression check",
+          "type": "behavioral"
+        },
+        {
+          "text": "Preserves the exact quickfix invocation in the Quickfix diagnosis, slice definition, handoff, and reviewer prompt so advisors with compressed context do not downgrade the run to full blaze",
           "type": "behavioral"
         },
         {

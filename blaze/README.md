@@ -30,6 +30,7 @@ Restart the session so the skill is picked up, then invoke with `/blaze` or let 
 
 Bug fixes follow a dedicated path: reproduce first, diagnosis review instead of spec review, and the reproduction becomes a required regression test.
 Small obvious bugs may use opt-in quickfix mode, which keeps reproduction, branch safety, regression evidence, and narrow verification while replacing the separate diagnosis-review gate with an inline Quickfix diagnosis.
+Quickfix mode records the exact `/blaze quickfix` invocation in handoffs and reviewer prompts so advisors do not mistake it for full blaze.
 
 It does not trigger for worker threads dispatched by the swarm coordinator (use swarm-worker) or for orchestrating multiple parallel slices (use swarm).
 
