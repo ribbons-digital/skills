@@ -115,6 +115,34 @@
     },
     {
       "id": 7,
+      "prompt": "/blaze quickfix - the settings checkbox saves the opposite value. Reproduce it and patch the minimal cause.",
+      "expected_output": "Quickfix mode engages only after a narrow reproduction, skips the separate diagnosis-review gate, records an inline Quickfix diagnosis, keeps branch safety and regression evidence, and falls back to the full bug-fix path if the scope or uncertainty grows.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Requires a failing narrow reproduction before implementing the fix",
+          "type": "behavioral"
+        },
+        {
+          "text": "Skips the separate diagnosis-review gate only because the user opted into quickfix mode",
+          "type": "behavioral"
+        },
+        {
+          "text": "Records an inline Quickfix diagnosis with reproduction, failing evidence, root cause, minimal fix, and regression check",
+          "type": "behavioral"
+        },
+        {
+          "text": "Keeps branch safety, regression evidence, and narrow verification rather than treating quickfix as permission to guess",
+          "type": "behavioral"
+        },
+        {
+          "text": "Falls back to the full bug-fix path if the diagnosis becomes uncertain or the touched area grows",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 8,
       "prompt": "You are worker 3 dispatched by the swarm coordinator; implement your assigned slice in worktree ../repo-auth on branch slice/auth.",
       "expected_output": "blaze does not engage; the swarm-worker skill governs dispatched worker threads.",
       "files": [],
