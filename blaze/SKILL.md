@@ -66,6 +66,8 @@ Keep the fix minimal: fix the cause, not every smell near it, and park refactors
 ### Quickfix mode
 
 For small, obvious bugs, the user may opt into quickfix mode with `/blaze quickfix` or equivalent wording.
+Treat that invocation as explicit user consent for quickfix mode, but do not leave it implicit: every Quickfix diagnosis, slice definition, handoff, and reviewer prompt must include `Mode: quickfix` and the exact user invocation text that authorized it.
+This prevents advisors or reviewers with compressed context from downgrading the run back to full blaze because they only see `/blaze`.
 
 Quickfix mode is allowed only when all of these are true:
 
@@ -83,6 +85,7 @@ If the diagnosis becomes uncertain, the touched area grows, or the verification 
 
 By default, quickfix mode keeps the pre-PR implementation review but skips no-mistakes unless the user asks for full delivery validation.
 If the user explicitly asks to skip the implementation review too, report that blaze ran in local quickfix mode and list the verification that replaced it.
+When quickfix mode skips no-mistakes, state `no-mistakes: skipped by quickfix mode` in the slice summary and final response; if any reviewer or advisor claims quickfix was not authorized, compare against the recorded invocation text before changing mode.
 
 ## Slice selection and planning gate
 
