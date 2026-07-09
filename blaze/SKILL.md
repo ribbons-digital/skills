@@ -150,7 +150,18 @@ The preferred gate is no-mistakes: load the no-mistakes skill and follow its own
 
 If skill discovery does not surface no-mistakes, or any no-mistakes command fails in a way its skill does not explain, fetch and follow the official quick start before reporting failure: https://kunchenguid.github.io/no-mistakes/start-here/quick-start/
 
-One bootstrap fact stays here because agents repeatedly failed without it: a validation run is started by pushing the branch through the gate remote with `git push no-mistakes <branch>`, while `no-mistakes axi run` only attaches to an existing run; on an error like `no run started for "<branch>": no previous run for branch`, push the branch through the gate remote first, then retry `axi run`.
+One bootstrap fact stays here because agents repeatedly failed without it: a validation run is created by the gate's post-receive hook when a push updates a ref on the gate remote, while `no-mistakes axi run` only attaches to a run that already exists.
+
+On an error like `no run started for "<branch>": no previous run for branch`, walk this recovery ladder in order.
+After each rung, probe with `no-mistakes axi status` to see whether the daemon registered a run for the branch; attach with `axi run` only once a run exists.
+A missing run means move to the next rung, not another `axi run` retry.
+
+1. Push the branch through the gate remote: `git push no-mistakes <branch>`.
+2. If that push reports `up-to-date`, it updated no ref, fired no hook, and started nothing, even though the branch is visible in `git ls-remote no-mistakes`; force a ref update by deleting and re-pushing the gate branch: `git push no-mistakes --delete <branch> && git push no-mistakes <branch>`.
+3. If a ref-updating push still yields no run, suspect the daemon: run `no-mistakes doctor`, then re-run `no-mistakes init` from the repo root (documented as safe to re-run; it repairs gate wiring and ensures the daemon is running), then push again.
+4. If the CLI banner reports a newer version while the gate misbehaves, include that in the report and ask the user before updating; never update the tool on your own.
+
+If no run appears after the full ladder, stop driving the gate and go to the reporting invariant and fallback below.
 
 If the loaded no-mistakes skill or the quick start shows different commands, those win over this fact.
 
@@ -161,7 +172,7 @@ Invariants that hold regardless of the runbook version:
 - Use long timeouts for validation runs and responses; review, test, and CI steps can each take several minutes.
 - Escalate `ask-user` findings to the user unless the user gave explicit unattended consent.
 - Drive the run to a terminal outcome; when checks pass, stop driving the pipeline and ask the user to review and merge the PR.
-- If no-mistakes cannot start after the gate-remote push and a quick-start consultation, report the exact command, output, and failure instead of pretending the gate ran; a run blocked by its own gate findings is not a start failure, so fix or escalate those findings instead.
+- If no-mistakes cannot start after the full recovery ladder and a quick-start consultation, report the exact command, output, and failure instead of pretending the gate ran; a run blocked by its own gate findings is not a start failure, so fix or escalate those findings instead.
 
 Fallback when no-mistakes is unavailable or the user declines install:
 
