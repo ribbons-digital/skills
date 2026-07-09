@@ -1,6 +1,6 @@
 ---
 name: blaze
-description: Use when running a solo review-gated coding slice from entry gate to post-merge cleanup, with second-opinion model review of plans and specs, explicit user approval before implementation, verification, pre-PR model review, no-mistakes validation, PR workflow, and branch cleanup. Bug fixes follow a reproduce-first path with diagnosis review and a required regression test. The reviewer model is configurable and defaults to claude-opus-4-8. Not for worker threads dispatched by the swarm coordinator (use swarm-worker) and not for orchestrating multiple parallel slices (use swarm).
+description: Use when running a solo review-gated coding slice from entry gate to post-merge cleanup, with second-opinion model review of plans and specs, explicit user approval before implementation, verification, pre-PR model review, no-mistakes validation, PR workflow, and branch cleanup. Bug fixes follow a reproduce-first path with diagnosis review and a required regression test, with an opt-in quickfix mode for small obvious bugs. The reviewer model is configurable and defaults to claude-opus-4-8. Not for worker threads dispatched by the swarm coordinator (use swarm-worker) and not for orchestrating multiple parallel slices (use swarm).
 ---
 
 # Blaze
@@ -63,7 +63,26 @@ Acceptance criteria are fixed before implementing: the reproduction passes after
 
 Keep the fix minimal: fix the cause, not every smell near it, and park refactors as follow-ups.
 
-For trivial bugs whose cause is visible on sight, propose waiving the diagnosis review and proceed only if the user agrees; the reproduction and regression test still apply.
+### Quickfix mode
+
+For small, obvious bugs, the user may opt into quickfix mode with `/blaze quickfix` or equivalent wording.
+
+Quickfix mode is allowed only when all of these are true:
+
+- The bug is reproducible in one narrow scenario.
+- The root cause is visible from the reproduction.
+- The fix is expected to touch at most 1-2 files.
+- The change does not affect security, auth, payments, data loss, migrations, concurrency, or cross-system behavior.
+- A regression test or narrow verification can prove the behavior.
+
+Quickfix mode keeps the bug-fix invariants: create a branch before investigation, reproduce before fixing, no reproduction means no fix, add or update a regression test when practical, run the narrow relevant verification, and report exact evidence.
+
+Quickfix mode skips the separate diagnosis-review gate and replaces it with an inline Quickfix diagnosis containing reproduction, failing evidence, root cause, minimal fix, and regression check.
+
+If the diagnosis becomes uncertain, the touched area grows, or the verification cannot prove the behavior, stop and fall back to the full bug-fix path.
+
+By default, quickfix mode keeps the pre-PR implementation review but skips no-mistakes unless the user asks for full delivery validation.
+If the user explicitly asks to skip the implementation review too, report that blaze ran in local quickfix mode and list the verification that replaced it.
 
 ## Slice selection and planning gate
 
