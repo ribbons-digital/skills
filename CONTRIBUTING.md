@@ -16,6 +16,20 @@ All changes land through a pull request with one approving review and a passing 
 python3 scripts/validate_skills.py
 ```
 
+If you use installed copies from `~/.agents/skills`, sync the repo version after validation:
+
+```bash
+scripts/sync_skills.sh
+```
+
+Override the target when needed:
+
+```bash
+SKILLS_INSTALL_DIR=~/.claude/skills scripts/sync_skills.sh
+```
+
+The script validates first, then replaces every skill under the target directory with the version from this repo.
+
 4. Open a PR describing what the change does and why.
 
 ## What the validator enforces
