@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SKIP_DIRS = {".git", ".github", "scripts"}
+MAX_DESCRIPTION_CHARS = 1024
 
 errors = []
 
@@ -51,6 +52,11 @@ for d in skill_dirs:
         )
     if not desc_m or not desc_m.group(1).strip():
         err(f"{d.name}/SKILL.md: frontmatter missing 'description'")
+    elif len(desc_m.group(1).strip()) > MAX_DESCRIPTION_CHARS:
+        err(
+            f"{d.name}/SKILL.md: description exceeds {MAX_DESCRIPTION_CHARS} characters "
+            f"({len(desc_m.group(1).strip())})"
+        )
     if not (d / "README.md").exists():
         err(f"{d.name}: missing README.md")
     evals = d / "evals" / "evals.json"
