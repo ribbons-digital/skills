@@ -1,6 +1,7 @@
 ---
 name: knock-knock
 description: Use this skill for planning, discovering, or debriefing non-trivial work. Invoke it when the user wants to write an implementation plan or structure a feature before building; do a blindspot or discovery pass before starting ("knock-knock", "what am I missing?", unfamiliar codebase or domain); prepare a handoff prompt for a long agent run; clarify fuzzy requirements through brainstorming or interviews ("I'll know it when I see it"); verify understanding of a completed change ("did I miss anything?", "quiz me on this diff", "I want to make sure I understand this"); or package finished work into a pitch for buy-in. Skip for mechanical tasks - typos, renames, formatting - and simple factual questions.
+disable-model-invocation: true
 ---
 
 # Knock-Knock: Finding Your Unknowns
