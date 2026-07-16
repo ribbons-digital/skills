@@ -183,15 +183,12 @@ Update the Loop Card version and note what changed, so the loop improves run ove
 
 ## Portability across harnesses and models
 
-The loop design is harness-agnostic by construction: the Loop Card, the loop prompt, and the state file are plain text living in the repo, so the same loop runs under Claude Code, Codex, Cursor, or a bare API script, and can switch harnesses mid-run at zero cost because the state file, not the harness, is the source of truth.
-Keep it that way with these rules:
+The loop design stays harness-agnostic when the Loop Card, loop prompt, and state file are plain text in the repo.
+The state file, not the harness, is the source of truth across Claude Code, Codex, Cursor, or a bare API script.
 
 - Write the loop prompt with no harness-specific commands or tool names; name the capability ("run the test suite", "search the repo", "open a PR") and let each harness map it to its own tools.
 - Do not assume model strength; the iteration contract, rubric, and stop conditions must be explicit enough that a weaker model fails safe (marks items `blocked`) rather than improvising.
 - Map missing primitives to fallbacks: no sub-agents means a fresh session acts as judge; no worktrees means one dedicated git branch per lane; no interval runner means cron or manual re-run; no scheduler means a CI schedule.
-- Keep the skill's own frontmatter minimal (name and description only), since the SKILL.md format is shared across harnesses but optional fields are not.
-
-The payoff is the one Osmani calls out: the core primitives are identical across tools, so a well-designed loop ports between platforms unchanged.
 
 ## Warnings to carry into every design
 

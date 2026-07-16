@@ -28,7 +28,7 @@ Take only what you need; each skill is self-contained, except that `swarm` requi
 
 3. Restart your agent session so the skills are picked up.
 
-4. Invoke explicitly (`/knock-knock`, `/loop-architect`, `/routine-architect`) or just describe your task - the skills trigger automatically on relevant prompts.
+4. Invoke explicit/manual-only skills by name (`/knock-knock`) or describe your task for auto-invoked skills (`/loop-architect`, `/routine-architect`, `/blaze`, `/swarm`).
 
 > [!TIP]
 > These skills are plain markdown with minimal frontmatter, so they are not Claude Code specific.
@@ -78,7 +78,7 @@ Workers own exactly one slice, escalate instead of guessing, and never push or m
 
 ### Planning and discovery
 
-- **[knock-knock](knock-knock/SKILL.md)** - surface unknowns before they get expensive: blindspot passes, interviews, brainstorms, reference mining, decisions-first plans, implementation notes, and post-build quizzes. Triggers on planning, discovery, and debrief requests for non-trivial work.
+- **[knock-knock](knock-knock/SKILL.md)** - manual-only `/knock-knock` skill for surfacing unknowns before they get expensive: blindspot passes, interviews, brainstorms, reference mining, decisions-first plans, implementation notes, and post-build quizzes.
 
 ### Loop engineering
 

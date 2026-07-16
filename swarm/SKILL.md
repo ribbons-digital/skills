@@ -65,7 +65,7 @@ Dispatch one worker per approved slice, in parallel, within the concurrency cap 
 
 Each assignment must be self-contained and include only that slice's context.
 
-Each assignment must instruct the worker to read and follow the `swarm-worker` skill, naming its installed path in the assignment (for example `~/.claude/skills/swarm-worker/SKILL.md`).
+Each assignment must instruct the worker to read and follow the `swarm-worker` skill; name the installed path only when the harness requires an explicit path.
 
 Each assignment must name the worker's worktree path and slice branch and state that all work and commits happen there.
 
