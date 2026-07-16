@@ -16,11 +16,11 @@ Skills are discovered as directories under a `skills/` folder. Copy this folder 
 cp -R knock-knock ~/.claude/skills/knock-knock
 ```
 
-Restart Claude Code (or start a new session) so the skill is picked up. It will then appear in the available-skills list and trigger automatically on relevant prompts, or you can invoke it explicitly with `/knock-knock`.
+Restart Claude Code (or start a new session) so the skill is picked up. It will then appear in the available-skills list and can be invoked explicitly with `/knock-knock`; it is manual-only because `disable-model-invocation: true` is set in frontmatter.
 
 Only `SKILL.md` is required for the skill to work; the `evals/` folder is optional and only used for validating/tuning the trigger description (see below).
 
-## What triggers it
+## When to invoke it
 
 Prompts like:
 
@@ -32,8 +32,8 @@ Prompts like:
 - "Quiz me on this diff before I merge it"
 - "Package this work into a pitch so the team approves it"
 
-It intentionally does **not** trigger for mechanical tasks (typos, renames, formatting) or simple factual questions.
+Do not invoke it for mechanical tasks (typos, renames, formatting) or simple factual questions.
 
 ## Trigger evals
 
-`evals/evals.json` holds labelled queries (`should_trigger: true/false`) used to measure whether the `description:` in `SKILL.md` fires on the right prompts. The current description was tuned against this set with Anthropic's `skill-creator` optimization loop, scoring 19/20. If you edit the description, re-run the loop to confirm it still triggers correctly.
+`evals/evals.json` holds labelled queries (`should_trigger: true/false`) used to measure whether the `description:` describes the right manual use cases. The current description was tuned against this set with Anthropic's `skill-creator` optimization loop, scoring 19/20. If you edit the description, re-run the loop to confirm it still describes the intended scope.

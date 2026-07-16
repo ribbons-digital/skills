@@ -223,6 +223,6 @@ Include:
 
 - changed files or PR link;
 - verification evidence;
-- review gate result (including the reviewer model used);
+- review gate result, including reviewer model used, or the explicit reason the gate was skipped;
 - no-mistakes result when used;
 - next required user action.
