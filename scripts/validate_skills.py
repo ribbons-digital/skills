@@ -57,6 +57,10 @@ for d in skill_dirs:
             f"{d.name}/SKILL.md: description exceeds {MAX_DESCRIPTION_CHARS} characters "
             f"({len(desc_m.group(1).strip())})"
         )
+    elif ": " in desc_m.group(1).strip():
+        err(
+            f"{d.name}/SKILL.md: description contains ': ', which breaks plain YAML scalars"
+        )
     if not (d / "README.md").exists():
         err(f"{d.name}: missing README.md")
     evals = d / "evals" / "evals.json"
