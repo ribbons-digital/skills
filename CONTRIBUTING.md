@@ -32,6 +32,18 @@ The script validates first, then replaces every skill under the target directory
 
 4. Open a PR describing what the change does and why.
 
+5. After the PR is merged, run post-merge cleanup:
+
+```bash
+scripts/post_merge.sh <pr-number>
+```
+
+Use `--dry-run` to preview the cleanup without changing branches or installed skills:
+
+```bash
+scripts/post_merge.sh --dry-run <pr-number>
+```
+
 ## What the validator enforces
 
 Every top-level skill folder must contain:
