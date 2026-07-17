@@ -13,6 +13,10 @@ The coordinator decomposes approved scope into slices, dispatches one swarm-work
 The coordinator never implements a slice itself.
 
 Workers follow the `swarm-worker` skill and own nothing beyond their assigned slice.
+Qualify the request before starting coordination.
+If it contains only one bounded slice, state that swarm is not appropriate and route to Blaze or direct solo work.
+Do not manufacture a one-slice swarm plan merely because this skill was explicitly loaded.
+
 
 ## Model policy
 
@@ -51,6 +55,8 @@ Each slice must satisfy the swarm-worker runnable-slice contract:
 - docs or explicit no-docs-needed;
 - out-of-scope items;
 - any cross-slice constraints.
+The plan is incomplete unless every slice visibly includes all seven fields; do not rely on global prose to fill missing slice contracts.
+The plan must also name the proposed integration branch, pre-dispatch worktree and slice-branch layout, and the concurrency cap plus queue policy.
 
 Prefer slices that touch disjoint files.
 

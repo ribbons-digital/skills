@@ -25,7 +25,9 @@ Quality bottlenecks live in the bottom two quadrants. The goal of every techniqu
 
 Calibration matters in both directions: over-specified instructions get followed off a cliff when a pivot was warranted; under-specified ones get filled with generic best practices that may not fit. Surfacing unknowns is what tells you which failure mode you're near.
 
-**Always ask the user for their starting point first**: what do they already know about this domain and codebase, where are they in their thinking, what's their experience level? Unknowns are relative to the person. A blindspot pass for a domain expert and a newcomer should look completely different.
+Establish the user's starting point before choosing a technique, because unknowns are relative to the person.
+If the prompt already states their experience with the domain or codebase, treat that as the starting point and proceed instead of asking them to repeat it.
+Only when the starting point is absent, ask one calibration question and wait.
 
 ## Choosing a technique
 
@@ -46,6 +48,8 @@ For trivial tasks, skip straight to doing the work. This process is for tasks la
 ### 1. Blindspot pass
 
 When the user is entering unfamiliar territory, proactively scan the codebase/domain and report what they likely don't know to ask about: relevant history, conventions, potholes, what "good" looks like, and what questions an expert would ask that they haven't. Frame the output as "here's what you didn't know to ask, and here's how to prompt me better because of it."
+Complete the grounded scan and blindspot report in that response when the user's starting point is already known.
+Do not replace the requested pass with an interview, brainstorm, or implementation plan; any closing questions belong in the derived "how to prompt better" guidance.
 
 Example user prompt this serves:
 > "I'm adding a new auth provider but know nothing about the auth modules here. Do a blindspot pass - find my unknown unknowns and help me prompt you better."

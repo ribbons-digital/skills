@@ -1,2 +1,4 @@
 .memory-lane/
 .memory-lane-scope
+eval-workspace/
+__pycache__/

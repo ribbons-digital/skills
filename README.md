@@ -107,6 +107,36 @@ Each skill is a self-contained directory:
   evals/        # labelled trigger queries for tuning the description
 ```
 
+## Evidence-backed evaluations
+
+The repository includes an 18-case smoke suite selected from the six skills' existing eval files.
+It compares fresh candidate and baseline sessions, captures JSONL traces and repository state, and grades each assertion as PASS or FAIL with concrete evidence.
+
+### Evaluation snapshot
+
+On 2026-07-17, the six manually invoked skills were evaluated with 18 selected cases and 52 behavioral assertions.
+
+| Comparison | Candidate | Baseline | Delta |
+|---|---:|---:|---:|
+| Original skills versus no skill | 38/52 (73.1%) | 19/52 (36.5%) | +19 assertions |
+| Revised skills versus frozen originals | 52/52 (100.0%) | 42/52 (80.8%) | +10 assertions |
+
+Candidate and baseline runs used the same prompts, disposable fixtures, permissions, timeout, and harness configuration.
+Only the explicitly loaded skill version differed.
+These results measure this selected manual-invocation smoke suite, not automatic triggering or performance across all possible prompts.
+See [`evals/results/2026-07-17-smoke-summary.json`](evals/results/2026-07-17-smoke-summary.json) for the case list, methodology, per-skill results, checksums, and limitations.
+
+Run the local-process fallback from the repository root:
+
+```bash
+python3 scripts/run_skill_evals.py --iteration 1 --configuration both --timeout 300
+python3 scripts/grade_skill_evals.py --iteration 1 --timeout 300
+```
+
+Generated artifacts live under `eval-workspace/iteration-<name>/` and are ignored by Git.
+Full model-based runs remain manual and are not required PR CI.
+See [CONTRIBUTING.md](CONTRIBUTING.md#evaluating-skill-behavior) for fixture, baseline, evidence, artifact, and optional microVM conventions.
+
 ## Contributing
 
 Changes land through pull requests with a passing `validate` check; see [CONTRIBUTING.md](CONTRIBUTING.md) for the flow, the local validator, and the house style.
