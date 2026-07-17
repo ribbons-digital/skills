@@ -1,6 +1,7 @@
 ---
 name: blaze
 description: Use when running a solo review-gated coding slice from entry gate to post-merge cleanup, with second-opinion model review of plans and specs, explicit user approval before implementation, verification, pre-PR model review, no-mistakes validation, PR workflow, and branch cleanup. Bug fixes follow a reproduce-first path with diagnosis review and a required regression test, with an opt-in quickfix mode for small obvious bugs. The reviewer model is configurable and defaults to claude-opus-4-8. Not for worker threads dispatched by the swarm coordinator (use swarm-worker) and not for orchestrating multiple parallel slices (use swarm).
+disable-model-invocation: true
 ---
 
 # Blaze

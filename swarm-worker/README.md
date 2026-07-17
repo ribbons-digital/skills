@@ -15,7 +15,7 @@ cp -R swarm-worker ~/.claude/skills/swarm-worker
 
 Workers dispatched by swarm are pointed at this skill by path in their assignments; keep the install location in sync with what swarm assignments reference.
 
-## What triggers it
+## When to invoke it
 
 - An assignment from a swarm coordinator naming a slice, worktree, and slice branch
 - "Execute this approved slice in your worktree and hand off when verified"
@@ -27,6 +27,6 @@ For a solo slice that should go all the way to a PR, use blaze instead.
 
 `blaze` (solo, full workflow) / `swarm` (coordinator) / `swarm-worker` (dispatched worker).
 
-## Trigger evals
+## Scope evals
 
-`evals/evals.json` holds labelled queries for validating the trigger description; re-run a skill-creator optimization loop after editing the description.
+`evals/evals.json` holds labelled queries for validating the invocation description; re-run a skill-creator optimization loop after editing the description.

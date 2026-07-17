@@ -23,9 +23,9 @@ cp -R loop-architect ~/.claude/skills/loop-architect
 ```
 
 Restart Claude Code (or start a new session) so the skill is picked up.
-It will then trigger automatically on relevant prompts, or you can invoke it explicitly with `/loop-architect`.
+Invoke it explicitly with `/loop-architect`.
 
-Only `SKILL.md` is required; the `evals/` folder is optional and only used for validating the trigger description.
+Only `SKILL.md` is required; the `evals/` folder is optional and only used for validating the invocation description.
 
 ### Other harnesses
 
@@ -37,14 +37,13 @@ The skill is plain markdown with minimal frontmatter, so it ports beyond Claude 
 
 The artifacts the skill produces (Loop Card, loop prompt, state file) are deliberately harness-neutral plain text, so a loop designed in one tool can be run or resumed in another.
 
-### Proactive triggering
+### Proactive reminder rule
 
-The skill's description also fires proactively: when the agent notices it is repeating the same shape of change or prompt across 3+ items, it should pause and propose a loop.
-Skill descriptions alone catch this unreliably, so pair it with an always-on rule in your global instructions (CLAUDE.md / AGENTS.md), for example:
+This skill is manual-only, but you can still add a global rule that reminds agents to suggest it when repetition appears:
 
-> If you notice yourself making the same shape of change, fix, or prompt across 3 or more items in a session, pause and propose designing a loop for it (use the loop-architect skill if available) instead of continuing item by item.
+> If you notice yourself making the same shape of change, fix, or prompt across 3 or more items in a session, pause and propose designing a loop with `/loop-architect` instead of continuing item by item.
 
-## What triggers it
+## When to invoke it
 
 Prompts like:
 
@@ -66,7 +65,7 @@ It intentionally does **not** trigger for:
 `/loop` is the engine; `loop-architect` is the drawing board.
 This skill produces the loop prompt, state file, and stop conditions that make an interval or goal-based runner like `/loop` safe and useful.
 
-## Trigger evals
+## Scope evals
 
-`evals/evals.json` holds labelled queries used to measure whether the `description:` in `SKILL.md` fires on the right prompts.
-If you edit the description, re-run a skill-creator optimization loop to confirm it still triggers correctly.
+`evals/evals.json` holds labelled queries used to measure whether the `description:` in `SKILL.md` describes the right manual use cases.
+If you edit the description, re-run a skill-creator optimization loop to confirm it still describes the intended scope.

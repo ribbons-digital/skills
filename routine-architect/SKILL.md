@@ -1,6 +1,7 @@
 ---
 name: routine-architect
 description: Use this skill to design a recurring routine for non-coding work before running it. Invoke when the user wants to turn repetitive non-coding work into an autonomous routine (daily digests, inbox or channel triage, news or market monitoring, knowledge-base or vault upkeep, content pipelines, data hygiene in external tools), asks to "design a routine", "automate this workflow", "do this every morning/day/week", or keeps manually re-issuing the same non-coding prompt. Also invoke proactively, without being asked, when the agent notices the same non-coding request recurring across 3 or more sessions or items - pause and propose a routine before continuing item by item. For repetitive coding tasks in a repository (migrations, test or lint burn-downs, CI triage), use loop-architect instead. The deliverable is a reviewed Routine Card (goal, exit or cadence, iteration unit, verification, state, stop conditions, human gates, trigger, write surfaces) plus a runnable routine prompt.
+disable-model-invocation: true
 ---
 
 # Routine Architect: Design the Routine, Not the Prompt

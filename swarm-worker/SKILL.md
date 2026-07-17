@@ -1,6 +1,7 @@
 ---
 name: swarm-worker
 description: Use when executing one approved coding slice in a parallel worker thread dispatched by the swarm coordinator, with explicit scope, an assigned git worktree and slice branch, focused implementation, verification, slice commits, and handoff back to the coordinating main thread. The coordinating thread is the only reviewer. No external reviewer model, no-mistakes, PR, merge, or post-merge workflow; for a solo slice with full PR workflow use blaze. Can also run standalone on a single bounded slice with the user acting as coordinator.
+disable-model-invocation: true
 ---
 
 # Swarm Worker

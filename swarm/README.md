@@ -20,7 +20,7 @@ Restart the session so the skills are picked up.
 - Git worktree support in the repository.
 - The companion `swarm-worker` skill installed where workers can read it; assignments reference it by path.
 
-## What triggers it
+## When to invoke it
 
 - "Orchestrate this approved scope across parallel workers"
 - "Split this into slices and dispatch workers into worktrees"
@@ -32,6 +32,6 @@ Never use it inside a worker thread; for a single solo slice with full PR workfl
 
 `blaze` (solo, full workflow) / `swarm` (coordinator) / `swarm-worker` (dispatched worker).
 
-## Trigger evals
+## Scope evals
 
-`evals/evals.json` holds labelled queries for validating the trigger description; re-run a skill-creator optimization loop after editing the description.
+`evals/evals.json` holds labelled queries for validating the invocation description; re-run a skill-creator optimization loop after editing the description.

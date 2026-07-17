@@ -18,7 +18,7 @@ cp -R knock-knock ~/.claude/skills/knock-knock
 
 Restart Claude Code (or start a new session) so the skill is picked up. It will then appear in the available-skills list and can be invoked explicitly with `/knock-knock`; it is manual-only because `disable-model-invocation: true` is set in frontmatter.
 
-Only `SKILL.md` is required for the skill to work; the `evals/` folder is optional and only used for validating/tuning the trigger description (see below).
+Only `SKILL.md` is required for the skill to work; the `evals/` folder is optional and only used for validating/tuning the invocation description (see below).
 
 ## When to invoke it
 
@@ -34,6 +34,6 @@ Prompts like:
 
 Do not invoke it for mechanical tasks (typos, renames, formatting) or simple factual questions.
 
-## Trigger evals
+## Scope evals
 
 `evals/evals.json` holds labelled queries (`should_trigger: true/false`) used to measure whether the `description:` describes the right manual use cases. The current description was tuned against this set with Anthropic's `skill-creator` optimization loop, scoring 19/20. If you edit the description, re-run the loop to confirm it still describes the intended scope.
