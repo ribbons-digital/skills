@@ -28,7 +28,7 @@ Take only what you need; each skill is self-contained, except that `swarm` requi
 
 3. Restart your agent session so the skills are picked up.
 
-4. Invoke explicit/manual-only skills by name (`/knock-knock`) or describe your task for auto-invoked skills (`/loop-architect`, `/routine-architect`, `/blaze`, `/swarm`).
+4. Invoke the skill you want by name, for example `/knock-knock`, `/loop-architect`, `/routine-architect`, `/blaze`, or `/swarm`.
 
 > [!TIP]
 > These skills are plain markdown with minimal frontmatter, so they are not Claude Code specific.
@@ -82,8 +82,8 @@ Workers own exactly one slice, escalate instead of guessing, and never push or m
 
 ### Loop engineering
 
-- **[loop-architect](loop-architect/SKILL.md)** - turn a repetitive or recurring coding task into a designed, verifiable, resumable loop. Triggers on explicit loop-design asks and proactively when the agent notices it is repeating the same shape of change across 3+ items.
-- **[routine-architect](routine-architect/SKILL.md)** - turn repetitive non-coding work into a designed, verifiable, resumable routine. Triggers on recurring digests, inbox or channel triage, monitoring, knowledge-base upkeep, and content pipelines, with strict grounding and write-safety gates.
+- **[loop-architect](loop-architect/SKILL.md)** - manual `/loop-architect` skill for turning repetitive or recurring coding tasks into designed, verifiable, resumable loops.
+- **[routine-architect](routine-architect/SKILL.md)** - manual `/routine-architect` skill for turning repetitive non-coding work into designed, verifiable, resumable routines with strict grounding and write-safety gates.
 
 ### Review-gated delivery
 

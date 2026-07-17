@@ -1,6 +1,7 @@
 ---
 name: swarm
 description: Use when orchestrating multiple parallel coding slices from a single coordinating thread that dispatches swarm-worker agents into per-slice git worktrees, adjudicates their escalations, reviews their committed diffs against acceptance criteria, and integrates the results into one final PR. Coordinator-only companion to the swarm-worker skill. Never use inside a worker thread; for a single solo slice with full PR workflow use blaze.
+disable-model-invocation: true
 ---
 
 # Swarm

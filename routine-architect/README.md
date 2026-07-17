@@ -26,9 +26,9 @@ cp -R routine-architect ~/.claude/skills/routine-architect
 ```
 
 Restart Claude Code (or start a new session) so the skill is picked up.
-It will then trigger automatically on relevant prompts, or you can invoke it explicitly with `/routine-architect`.
+Invoke it explicitly with `/routine-architect`.
 
-Only `SKILL.md` is required; the `evals/` folder is optional and only used for validating the trigger description.
+Only `SKILL.md` is required; the `evals/` folder is optional and only used for validating the invocation description.
 
 ### Other harnesses
 
@@ -40,7 +40,7 @@ The skill is plain markdown with minimal frontmatter, so it ports beyond Claude 
 
 The artifacts the skill produces (Routine Card, routine prompt, state file) are deliberately harness-neutral plain text, so a routine designed in one tool can be run or resumed in another.
 
-## What triggers it
+## When to invoke it
 
 Prompts like:
 
@@ -50,7 +50,7 @@ Prompts like:
 - "Monitor these tickers and give me a weekly sentiment snapshot"
 - "Audit my vault for stale notes and keep going until you stop finding them"
 
-It intentionally does **not** trigger for:
+Do not invoke it for:
 
 - One-shot tasks ("summarize this article", "draft this email")
 - Repetitive coding tasks in a repository (migrations, test or lint burn-downs, CI triage) - that's [loop-architect](../loop-architect/README.md)
@@ -62,7 +62,7 @@ Same drawing-board philosophy, different terrain.
 loop-architect designs loops whose blast radius is a git branch and whose verifier is a test suite; routine-architect designs routines whose blast radius is other people's inboxes and whose verifier must be built from structural checks, grounding checks, and sampling.
 If the work lives in a repo, use loop-architect; if it lives in channels, feeds, mailboxes, or a knowledge base, use this.
 
-## Trigger evals
+## Scope evals
 
-`evals/evals.json` holds labelled queries used to measure whether the `description:` in `SKILL.md` fires on the right prompts.
-If you edit the description, re-run a skill-creator optimization loop to confirm it still triggers correctly.
+`evals/evals.json` holds labelled queries used to measure whether the `description:` in `SKILL.md` describes the right manual use cases.
+If you edit the description, re-run a skill-creator optimization loop to confirm it still describes the intended scope.

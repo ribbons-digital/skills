@@ -1,6 +1,7 @@
 ---
 name: loop-architect
 description: Use this skill to design an execution loop for a repetitive, long-running, or recurring coding task before running it, including migrations, test/lint burn-downs, bug hunts, CI triage, and dependency updates. Invoke on "design/build a loop", "loop this until done", loop engineering, or when the agent repeats the same change or prompt across 3+ items; pause and propose a loop. Deliverable is a reviewed Loop Card (goal, exit condition, iteration unit, verification, state, stop conditions, human gates), runnable loop prompt, and initialized state. Skip one-shot tasks, already-designed loop runs, and questions about loops in program code.
+disable-model-invocation: true
 ---
 
 # Loop Architect: Design the Loop, Not the Prompt
