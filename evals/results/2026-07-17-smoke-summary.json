@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "date": "2026-07-17",
+  "suite": "first-evidence-iteration",
+  "case_count": 18,
+  "assertion_count": 52,
+  "invocation_policy": "manual explicit skill loading",
+  "initial_benchmark": {
+    "candidate": "original skills",
+    "baseline": "no skill",
+    "candidate_passed": 38,
+    "baseline_passed": 19,
+    "total": 52,
+    "assertion_delta": 19,
+    "pass_rate_delta": 0.36538461538461536
+  },
+  "revision_benchmark": {
+    "candidate": "revised skills",
+    "baseline": "frozen original skills",
+    "candidate_passed": 52,
+    "baseline_passed": 42,
+    "total": 52,
+    "assertion_delta": 10,
+    "pass_rate_delta": 0.1923076923076923,
+    "duration_ms_delta": 3255,
+    "input_tokens_delta": 135542,
+    "output_tokens_delta": 953
+  },
+  "revision_results_by_skill": {
+    "blaze": {"candidate_passed": 9, "baseline_passed": 9, "total": 9},
+    "knock-knock": {"candidate_passed": 7, "baseline_passed": 7, "total": 7},
+    "loop-architect": {"candidate_passed": 10, "baseline_passed": 5, "total": 10},
+    "routine-architect": {"candidate_passed": 11, "baseline_passed": 10, "total": 11},
+    "swarm": {"candidate_passed": 8, "baseline_passed": 4, "total": 8},
+    "swarm-worker": {"candidate_passed": 7, "baseline_passed": 7, "total": 7}
+  },
+  "selected_cases": [
+    "blaze:1",
+    "blaze:6",
+    "blaze:8",
+    "knock-knock:1",
+    "knock-knock:3",
+    "knock-knock:8",
+    "loop-architect:1",
+    "loop-architect:3",
+    "loop-architect:6",
+    "routine-architect:1",
+    "routine-architect:3",
+    "routine-architect:7",
+    "swarm:1",
+    "swarm:2",
+    "swarm:6",
+    "swarm-worker:1",
+    "swarm-worker:2",
+    "swarm-worker:6"
+  ],
+  "stability": {
+    "repeated_case": "knock-knock:1",
+    "reason": "PASS and FAIL changed across runs",
+    "run_count": 3,
+    "revised_passed": 11,
+    "original_passed": 10,
+    "total_per_configuration": 12
+  },
+  "environment": {
+    "harness": "codex-cli 0.142.0",
+    "model": "Codex default with user configuration ignored; resolved identifier was not emitted",
+    "isolation_backend": "local_process",
+    "network_policy": "workspace sandbox with network-disabled task instructions and credential-free fixtures",
+    "boring_computers_used": false
+  },
+  "current_skill_sha256": {
+    "blaze": "98ccca60fa30b033a346c645395eed3b536fdbcd28fceadbd015e53c247fb61e",
+    "knock-knock": "36382afc1e0306b7894a4573616eb042553d87895e2ba1324247ce1c35cbcf72",
+    "loop-architect": "bfb7d5ed45f6e2e9c221236fc63d26108666e3481149a0efe30b97a1c731a2d8",
+    "routine-architect": "cf844829c0208eb2405f6d175d20be39c79afeb02ed2bff2512414bfcf31caf7",
+    "swarm": "a95fee3a9d16634eaf0735a22dbaca04944bac13f66929f014ba52b63c881230",
+    "swarm-worker": "d8df24f444f36b15192af93e7a29cfa910cd2469b54b1098a167c789c6228c54"
+  },
+  "original_skill_sha256": {
+    "blaze": "98ccca60fa30b033a346c645395eed3b536fdbcd28fceadbd015e53c247fb61e",
+    "knock-knock": "197a380a44d063dee30391a070438743e670c7aa8765caf4a08b945efe8b6f19",
+    "loop-architect": "ae1382fead067dc8a889e829662d607d7e5f145ab0a53387cef3e53faf46252a",
+    "routine-architect": "cf844829c0208eb2405f6d175d20be39c79afeb02ed2bff2512414bfcf31caf7",
+    "swarm": "1c44c8337bfd34c6012fe9c7dc6561319d138878ef54bb3fc5788869958ad697",
+    "swarm-worker": "d8df24f444f36b15192af93e7a29cfa910cd2469b54b1098a167c789c6228c54"
+  },
+  "limitations": [
+    "The cases were deliberately selected from existing evals and are not a random sample of all requests.",
+    "The benchmark measures explicit skill use, not automatic triggering.",
+    "Most cases have one run per configuration, so no suite-wide standard deviation is reported.",
+    "The resolved model identifier was not available in the installed harness trace.",
+    "Boring Computers was unavailable, so no local-versus-microVM comparison was performed.",
+    "Unnecessary command counts were not computed in this iteration."
+  ],
+  "commands": {
+    "initial_run": "python3 scripts/run_skill_evals.py --iteration 1 --configuration both --timeout 300",
+    "initial_grade": "python3 scripts/grade_skill_evals.py --iteration 1 --timeout 300",
+    "snapshot": "python3 scripts/snapshot_eval_skills.py eval-workspace/original-skills",
+    "revision_run": "python3 scripts/run_skill_evals.py --iteration 2 --configuration both --baseline-skill-root eval-workspace/original-skills --timeout 300",
+    "revision_grade": "python3 scripts/grade_skill_evals.py --iteration 2 --timeout 300"
+  }
+}

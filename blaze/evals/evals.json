@@ -16,7 +16,7 @@
           "type": "behavioral"
         },
         {
-          "text": "Caps debate at three rounds and presents unresolved disagreement to the user as the decision",
+          "text": "Stops reviewer debate once consensus is reached, never exceeds three rounds, and presents any unresolved disagreement to the user",
           "type": "behavioral"
         },
         {

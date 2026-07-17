@@ -16,11 +16,11 @@
           "type": "behavioral"
         },
         {
-          "text": "Creates an integration branch and one worktree with a slice branch per slice before dispatch",
+          "text": "The slice plan specifies an integration branch and one pre-created worktree with a slice branch per worker before dispatch",
           "type": "behavioral"
         },
         {
-          "text": "Respects the concurrency cap, queuing slices beyond it",
+          "text": "The slice plan states the concurrency cap and queues slices beyond it",
           "type": "behavioral"
         },
         {
@@ -40,7 +40,7 @@
           "type": "behavioral"
         },
         {
-          "text": "Relays the decision back to the worker as a confirmed next action and records the escalation for the final report",
+          "text": "Records the escalation and leaves the worker relay pending until the user supplies a decision, without inventing a confirmed action",
           "type": "behavioral"
         }
       ]

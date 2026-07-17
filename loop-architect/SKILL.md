@@ -132,6 +132,9 @@ Cost scales by N, so reserve this for items where a plausible-but-wrong fix is e
 
 Fill in the Loop Card and present it to the user for approval before anything runs.
 This is the review gate; do not skip it even if the design seems obvious.
+Before presenting it, make every field operational rather than descriptive.
+The State field must name the external file and explicitly say that each iteration reads it before acting and writes it after every item.
+For a mutating loop, the Isolation field must name the dedicated branch or worktree that will be created after approval; "current workspace" or "local fixture" is not an isolation plan.
 
 ```markdown
 # Loop Card: <name>
@@ -141,11 +144,11 @@ This is the review gate; do not skip it even if the design seems obvious.
 - **Exit condition**: <machine-runnable check, or cadence for watch loops>
 - **One iteration**: <the unit of work>
 - **Verification**: <deterministic checks, then judge rubric, in order>
-- **State**: <where it lives, what it tracks>
+- **State**: <external file; tracked fields; read before acting; write after every item>
 - **Stop conditions**: max <N> iterations; halt after <K> no-progress rounds; <budget>
 - **Human gates**: <pre-authorized actions; what escalates; where blocked items go>
 - **Trigger**: manual | interval runner (harness loop command, cron, or CI schedule) | self-paced | event | schedule
-- **Isolation**: <branch/worktree; tool permissions>
+- **Isolation**: <dedicated branch/worktree for mutations; tool permissions>
 ```
 
 After approval, generate the runnable loop prompt from this template, filled with the Card's specifics, and save it next to the state file so the user runs it instead of typing prompts:
