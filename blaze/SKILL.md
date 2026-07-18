@@ -171,6 +171,31 @@ After the code review is resolved, commit the slice on the feature branch and ru
 
 The preferred gate is no-mistakes: load the no-mistakes skill and follow its own runbook for setup, runs, and gate responses; do not duplicate its CLI mechanics from memory, since the skill is the authoritative source for its current commands.
 
+The no-mistakes skill owns its CLI mechanics, but Blaze still owns slice scope and convergence.
+Count each accepted review fix followed by fix review as one fix round.
+The initial budget is a hard cap of two review fix rounds per validation run.
+Only the user's explicit choice of option 2 below may add exactly one additional round.
+Unattended consent cannot increase or bypass either limit.
+
+After each fix review, distinguish verification of the selected correction from a newly broadened review finding.
+Retain a newly surfaced finding in the current slice only when concrete evidence shows that it is either a regression caused by the selected correction or an independently release-blocking correctness, security, data-loss, or safety issue.
+Otherwise record it as a follow-up candidate rather than authorizing another fix.
+
+When two fix rounds do not reach a terminal review result, stop before sending another gate response.
+Report the accepted fix commits, the unresolved finding, missing reproduction or failing evidence, elapsed validation time when available, and that the gate did not converge.
+The next action is one convergence gate, not a decision on the new finding and not automatic termination.
+Present exactly two options to the user:
+
+1. End the no-mistakes run, preserve the accepted gate-fix commits, and use the fallback verification below.
+2. Renew the budget for the one named finding and exactly one additional fix round.
+
+Recommend option 1 when the finding does not meet the retention threshold, but do not choose either option for the user.
+If the user chooses option 1, follow the loaded no-mistakes runbook to preserve accepted fix commits and terminate the active run safely, then use the fallback and state that no-mistakes did not reach a terminal pass.
+If that runbook offers no safe termination path that retains the fixes, leave the run parked, preserve the gate branch or ref, and report the blocker instead of improvising an abort, reset, or branch deletion.
+
+This budget is a stop condition, not permission to ignore evidence.
+Apply the same retention threshold to the extra-round decision: include the evidence and recommend option 2 only when the threshold is met; otherwise recommend option 1 and keep the finding as a follow-up candidate.
+
 If skill discovery does not surface no-mistakes, or any no-mistakes command fails in a way its skill does not explain, fetch and follow the official quick start before reporting failure: https://kunchenguid.github.io/no-mistakes/start-here/quick-start/
 
 One bootstrap fact stays here because agents repeatedly failed without it: a validation run is created by the gate's post-receive hook when a push updates a ref on the gate remote, while `no-mistakes axi run` only attaches to a run that already exists.
@@ -197,11 +222,11 @@ Invariants that hold regardless of the runbook version:
 - Drive the run to a terminal outcome; when checks pass, stop driving the pipeline and ask the user to review and merge the PR.
 - If no-mistakes cannot start after the full recovery ladder and a quick-start consultation, report the exact command, output, and failure instead of pretending the gate ran; a run blocked by its own gate findings is not a start failure, so fix or escalate those findings instead.
 
-Fallback when no-mistakes is unavailable or the user declines install:
+Fallback when no-mistakes is unavailable, the user declines install, or the user chooses option 1 after preserving accepted fixes from a non-converging run:
 
 1. Run the project-wide verification suite (test, typecheck, build, lint) and report the results.
 2. With the user's approval, push the feature branch and open the PR following the project's conventions.
-3. State plainly in the final response that validation ran without the no-mistakes gate.
+3. State plainly in the final response that validation did not reach a terminal no-mistakes pass and why: the gate was unavailable, installation was declined, or the user ended a non-converging run after accepted fixes were preserved.
 
 ## Post-merge cleanup
 
