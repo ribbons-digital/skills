@@ -172,8 +172,10 @@ After the code review is resolved, commit the slice on the feature branch and ru
 The preferred gate is no-mistakes: load the no-mistakes skill and follow its own runbook for setup, runs, and gate responses; do not duplicate its CLI mechanics from memory, since the skill is the authoritative source for its current commands.
 
 The no-mistakes skill owns its CLI mechanics, but Blaze still owns slice scope and convergence.
-Count each accepted review fix followed by fix review as one fix round, and allow at most two review fix rounds per validation run by default.
-Unattended consent does not remove this budget.
+Count each accepted review fix followed by fix review as one fix round.
+The initial budget is a hard cap of two review fix rounds per validation run.
+Only the user's explicit choice of option 2 below may add exactly one additional round.
+Unattended consent cannot increase or bypass either limit.
 
 After each fix review, distinguish verification of the selected correction from a newly broadened review finding.
 If the fix review surfaces a new finding outside the selected correction, require concrete evidence that it is a regression caused by that correction or a safety-critical failure before treating it as part of the current slice.
