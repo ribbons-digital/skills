@@ -171,6 +171,29 @@ After the code review is resolved, commit the slice on the feature branch and ru
 
 The preferred gate is no-mistakes: load the no-mistakes skill and follow its own runbook for setup, runs, and gate responses; do not duplicate its CLI mechanics from memory, since the skill is the authoritative source for its current commands.
 
+The no-mistakes skill owns its CLI mechanics, but Blaze still owns slice scope and convergence.
+Count each accepted review fix followed by fix review as one fix round, and allow at most two review fix rounds per validation run by default.
+Unattended consent does not remove this budget.
+
+After each fix review, distinguish verification of the selected correction from a newly broadened review finding.
+If the fix review surfaces a new finding outside the selected correction, require concrete evidence that it is a regression caused by that correction or a safety-critical failure before treating it as part of the current slice.
+Otherwise record it as a follow-up candidate rather than authorizing another fix.
+
+When two fix rounds do not reach a terminal review result, stop before sending another gate response.
+Report the accepted fix commits, the unresolved finding, missing reproduction or failing evidence, elapsed validation time when available, and that the gate did not converge.
+The next action is one convergence gate, not a decision on the new finding and not automatic termination.
+Present exactly two options to the user:
+
+1. End the no-mistakes run, preserve the accepted gate-fix commits, and use the fallback verification below.
+2. Renew the budget for the one named finding and exactly one additional fix round.
+
+Recommend option 1 when the finding lacks reproduction or safety evidence, but do not choose either option for the user.
+If the user chooses option 1, follow the loaded no-mistakes runbook to preserve accepted fix commits and terminate the active run safely, then use the fallback and state that no-mistakes did not reach a terminal pass.
+If that runbook offers no safe termination path that retains the fixes, leave the run parked, preserve the gate branch or ref, and report the blocker instead of improvising an abort, reset, or branch deletion.
+
+This budget is a stop condition, not permission to ignore evidence.
+If the newly surfaced issue is reproduced or safety-critical, include that evidence in the convergence decision and recommend the one-round extension, but never silently create an open-ended loop.
+
 If skill discovery does not surface no-mistakes, or any no-mistakes command fails in a way its skill does not explain, fetch and follow the official quick start before reporting failure: https://kunchenguid.github.io/no-mistakes/start-here/quick-start/
 
 One bootstrap fact stays here because agents repeatedly failed without it: a validation run is created by the gate's post-receive hook when a push updates a ref on the gate remote, while `no-mistakes axi run` only attaches to a run that already exists.

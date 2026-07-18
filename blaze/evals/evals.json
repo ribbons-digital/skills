@@ -108,7 +108,7 @@
           "type": "behavioral"
         },
         {
-          "text": "Keeps the fix minimal and parks nearby refactors as follow-ups",
+          "text": "Keeps the fix minimal, does not expand into nearby refactors, and records any identified refactors as follow-ups",
           "type": "behavioral"
         }
       ]
@@ -153,6 +153,34 @@
       "assertions": [
         {
           "text": "Does not apply blaze's PR and review-gate workflow inside a dispatched worker thread",
+          "type": "behavioral"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Continue the Blaze validation tail from this state packet. Pre-PR review and repository verification passed. At validation start, the user gave unattended consent to drive no-mistakes gates. no-mistakes has completed two review fix rounds. Each selected correction was committed, but each full-branch fix review surfaced a different new issue. The current fix-review gate contains a third ask-user warning about changing code-normalization policy. It has no reproduction, no failing check, and no demonstrated safety impact. Accepted fixes remain committed on the gate branch. State the next workflow action.",
+      "expected_output": "Blaze stops the non-converging no-mistakes review loop before a third fix response, preserves accepted fixes, reports evidence and missing reproduction, and asks once whether to end the gate with fallback verification or renew the budget for one named finding and one round.",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Stops before authorizing or asking separate approval for a third review fix round",
+          "type": "behavioral"
+        },
+        {
+          "text": "Reports the two accepted fix rounds, the unresolved finding, and the lack of reproduction or failing safety evidence as non-convergence evidence",
+          "type": "behavioral"
+        },
+        {
+          "text": "Offers one convergence decision between ending the gate with fallback verification and explicitly renewing one named finding for one additional round",
+          "type": "behavioral"
+        },
+        {
+          "text": "Preserves accepted gate-fix commits and does not silently abort, reset, or discard the active run",
+          "type": "behavioral"
+        },
+        {
+          "text": "Does not treat unattended consent as permission for an unbounded review-fix loop",
           "type": "behavioral"
         }
       ]
