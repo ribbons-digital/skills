@@ -178,7 +178,7 @@ Only the user's explicit choice of option 2 below may add exactly one additional
 Unattended consent cannot increase or bypass either limit.
 
 After each fix review, distinguish verification of the selected correction from a newly broadened review finding.
-If the fix review surfaces a new finding outside the selected correction, require concrete evidence that it is a regression caused by that correction or a safety-critical failure before treating it as part of the current slice.
+Retain a newly surfaced finding in the current slice only when concrete evidence shows that it is either a regression caused by the selected correction or an independently release-blocking correctness, security, data-loss, or safety issue.
 Otherwise record it as a follow-up candidate rather than authorizing another fix.
 
 When two fix rounds do not reach a terminal review result, stop before sending another gate response.
@@ -189,12 +189,12 @@ Present exactly two options to the user:
 1. End the no-mistakes run, preserve the accepted gate-fix commits, and use the fallback verification below.
 2. Renew the budget for the one named finding and exactly one additional fix round.
 
-Recommend option 1 when the finding lacks reproduction or safety evidence, but do not choose either option for the user.
+Recommend option 1 when the finding does not meet the retention threshold, but do not choose either option for the user.
 If the user chooses option 1, follow the loaded no-mistakes runbook to preserve accepted fix commits and terminate the active run safely, then use the fallback and state that no-mistakes did not reach a terminal pass.
 If that runbook offers no safe termination path that retains the fixes, leave the run parked, preserve the gate branch or ref, and report the blocker instead of improvising an abort, reset, or branch deletion.
 
 This budget is a stop condition, not permission to ignore evidence.
-If the newly surfaced issue is reproduced or safety-critical, include that evidence in the convergence decision and recommend the one-round extension, but never silently create an open-ended loop.
+Apply the same retention threshold to the extra-round decision: include the evidence and recommend option 2 only when the threshold is met; otherwise recommend option 1 and keep the finding as a follow-up candidate.
 
 If skill discovery does not surface no-mistakes, or any no-mistakes command fails in a way its skill does not explain, fetch and follow the official quick start before reporting failure: https://kunchenguid.github.io/no-mistakes/start-here/quick-start/
 
