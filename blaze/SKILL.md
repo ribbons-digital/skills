@@ -222,11 +222,11 @@ Invariants that hold regardless of the runbook version:
 - Drive the run to a terminal outcome; when checks pass, stop driving the pipeline and ask the user to review and merge the PR.
 - If no-mistakes cannot start after the full recovery ladder and a quick-start consultation, report the exact command, output, and failure instead of pretending the gate ran; a run blocked by its own gate findings is not a start failure, so fix or escalate those findings instead.
 
-Fallback when no-mistakes is unavailable or the user declines install:
+Fallback when no-mistakes is unavailable, the user declines install, or the user chooses option 1 after preserving accepted fixes from a non-converging run:
 
 1. Run the project-wide verification suite (test, typecheck, build, lint) and report the results.
 2. With the user's approval, push the feature branch and open the PR following the project's conventions.
-3. State plainly in the final response that validation ran without the no-mistakes gate.
+3. State plainly in the final response that validation did not reach a terminal no-mistakes pass and why: the gate was unavailable, installation was declined, or the user ended a non-converging run after accepted fixes were preserved.
 
 ## Post-merge cleanup
 
